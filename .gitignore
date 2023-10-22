@@ -27,6 +27,7 @@
 
 ## Report
 allure-report/
+allure-results
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

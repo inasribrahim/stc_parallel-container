@@ -4,9 +4,7 @@ import com.stc.test_crew.utils.read_properties.ReadProperties;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -24,8 +22,8 @@ public final class Driver {
     static LoggingPreferences logPrefs = new LoggingPreferences();
 
     private Driver(){}
-    public static void initDriver(String browserName,String linuxOs) throws IOException {
-        if (linuxOs.equalsIgnoreCase("yes")) {
+    public static void initDriver(String browserName,String linuxOrWindows) throws IOException {
+        if (linuxOrWindows.equalsIgnoreCase("linux")) {
             if (isNull(DriverManager.getWebDriver())) {
                 DesiredCapabilities capabilities = new DesiredCapabilities();
                 capabilities.setCapability("selenoid:options", Map.<String, Object>of(
@@ -53,21 +51,24 @@ public final class Driver {
                     logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
                     DriverManager.getWebDriver().navigate().to(getUrl());
                 }
-//            setMaximizeBrowser();
-            } else {
+            }
+        }
+            else if (linuxOrWindows.equalsIgnoreCase("windows")) {
                 if (isNull(DriverManager.getWebDriver())) {
                     if (browserName.equalsIgnoreCase("chrome")) {
                         DriverManager.setWebDriver(new ChromeDriver());
+                        DriverManager.getWebDriver().navigate().to(getUrl());
                     } else if (browserName.equalsIgnoreCase("edge")) {
                         DriverManager.setWebDriver(new EdgeDriver());
+                        DriverManager.getWebDriver().navigate().to(getUrl());
                     } else if (browserName.equalsIgnoreCase("firefox")) {
                         DriverManager.setWebDriver(new FirefoxDriver());
+                        DriverManager.getWebDriver().navigate().to(getUrl());
                     }
                 }
             }
 
         }
-    }
     public static void closeDriver(){
         if(isNotNull(DriverManager.getWebDriver())){
             DriverManager.getWebDriver().quit();

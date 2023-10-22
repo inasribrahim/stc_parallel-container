@@ -5,7 +5,7 @@
     <test verbose="2" preserve-order="true" name="TestCrew-Assignment-saudiarabia">
         <parameter name="browserName" value="edge"/>
         <parameter name="countryName" value="saudiarabia"/>
-        <parameter name="linuxOs" value="yes"/>
+        <parameter name="linuxOrWindows" value="linux"/>
         <classes>
             <class name="com.stc.test_crew.HooksHandler"/>
             <class name="com.stc.test_crew.tests.saudi_arabia.SaudiArabiaStcTestRunner">
@@ -16,7 +16,7 @@
     <test verbose="2" preserve-order="true" name="TestCrew-Assignment-bahrain">
     <parameter name="browserName" value="firefox"/>
     <parameter name="countryName" value="bahrain"/>
-    <parameter name="linuxOs" value="no"/>
+    <parameter name="linuxOrWindows" value="windows"/>
     <classes>
         <class name="com.stc.test_crew.HooksHandler"/>
         <class name="com.stc.test_crew.tests.bahrain.BahrainStcTestRunner">
@@ -27,7 +27,7 @@
     <test verbose="2" preserve-order="true" name="TestCrew-Assignment-kuwait">
         <parameter name="browserName" value="chrome"/>
         <parameter name="countryName" value="kuwait"/>
-        <parameter name="linuxOs" value="yes"/>
+        <parameter name="linuxOrWindows" value="linux"/>
         <classes>
             <class name="com.stc.test_crew.HooksHandler"/>
             <class name="com.stc.test_crew.tests.kuwait.KuwaitStcTestRunner">
