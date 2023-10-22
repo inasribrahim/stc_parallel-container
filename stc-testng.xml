@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite" parallel="tests" thread-count="3">
+
+    <test verbose="2" preserve-order="true" name="TestCrew-Assignment-saudiarabia">
+        <parameter name="browserName" value="edge"/>
+        <parameter name="countryName" value="saudiarabia"/>
+        <classes>
+            <class name="com.stc.test_crew.HooksHandler"/>
+            <class name="com.stc.test_crew.tests.saudi_arabia.SaudiArabiaStcTestRunner">
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="TestCrew-Assignment-bahrain">
+    <parameter name="browserName" value="firefox"/>
+    <parameter name="countryName" value="bahrain"/>
+    <classes>
+        <class name="com.stc.test_crew.HooksHandler"/>
+        <class name="com.stc.test_crew.tests.bahrain.BahrainStcTestRunner">
+        </class>
+    </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="TestCrew-Assignment-kuwait">
+        <parameter name="browserName" value="chrome"/>
+        <parameter name="countryName" value="kuwait"/>
+        <classes>
+            <class name="com.stc.test_crew.HooksHandler"/>
+            <class name="com.stc.test_crew.tests.bahrain.BahrainStcTestRunner">
+            </class>
+        </classes>
+    </test>
+
+</suite>
