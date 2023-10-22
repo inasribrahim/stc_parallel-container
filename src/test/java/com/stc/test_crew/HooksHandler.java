@@ -20,9 +20,9 @@ public class HooksHandler extends BaseTest {
     }
 
     @BeforeTest(alwaysRun = true)
-    @Parameters({"browserName","countryName"})
-    protected void setUp(String browserName , String countryName) throws IOException {
-        initDriver(browserName);
+    @Parameters({"browserName","countryName","linuxOs"})
+    protected void setUp(String browserName , String countryName,String linuxOs) throws IOException {
+        initDriver(browserName,linuxOs);
         browser.set(new Browsers());
         browser.get().stc.stcHome.getHeader().clickOnCountryName().switchCountry(countryName);
     }

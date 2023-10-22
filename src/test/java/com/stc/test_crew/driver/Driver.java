@@ -24,38 +24,48 @@ public final class Driver {
     static LoggingPreferences logPrefs = new LoggingPreferences();
 
     private Driver(){}
-    public static void initDriver(String browserName) throws IOException {
+    public static void initDriver(String browserName,String linuxOs) throws IOException {
+        if (linuxOs.equalsIgnoreCase("yes")) {
+            if (isNull(DriverManager.getWebDriver())) {
+                DesiredCapabilities capabilities = new DesiredCapabilities();
+                capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+                        "enableVNC", true,
+                        "enableVideo", true
+                ));
 
-        if (isNull(DriverManager.getWebDriver())){
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("selenoid:options", Map.<String, Object>of(
-                    "enableVNC", true,
-                    "enableVideo", true
-            ));
+                if (browserName.equalsIgnoreCase("chrome")) {
+                    capabilities.setCapability("browserName", "chrome");
+                    capabilities.setCapability("browserVersion", "98.0");
+                    DriverManager.setWebDriver(new RemoteWebDriver(new URL(remoteDriverHub), capabilities));
+                    logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
+                    DriverManager.getWebDriver().navigate().to(getUrl());
+                } else if (browserName.equalsIgnoreCase("edge")) {
+                    capabilities.setCapability("browserName", "MicrosoftEdge");
+                    capabilities.setCapability("browserVersion", "98.0");
+                    DriverManager.setWebDriver(new RemoteWebDriver(new URL(remoteDriverHub), capabilities));
+                    logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
+                    DriverManager.getWebDriver().navigate().to(getUrl());
+                } else if (browserName.equalsIgnoreCase("firefox")) {
+                    capabilities.setCapability("browserName", "firefox");
+                    capabilities.setCapability("browserVersion", "97.0");
 
-            if(browserName.equalsIgnoreCase("chrome")){
-                capabilities.setCapability("browserName", "chrome");
-                capabilities.setCapability("browserVersion", "98.0");
-                DriverManager.setWebDriver( new RemoteWebDriver(new URL(remoteDriverHub), capabilities));
-                logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
-                DriverManager.getWebDriver().navigate().to(getUrl());
-            }
-            else if(browserName.equalsIgnoreCase("edge")){
-                capabilities.setCapability("browserName", "MicrosoftEdge");
-                capabilities.setCapability("browserVersion", "98.0");
-                DriverManager.setWebDriver( new RemoteWebDriver(new URL(remoteDriverHub), capabilities));
-                logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
-                DriverManager.getWebDriver().navigate().to(getUrl());
-            }
-            else if(browserName.equalsIgnoreCase("firefox")){
-                capabilities.setCapability("browserName", "firefox");
-                capabilities.setCapability("browserVersion", "97.0");
-
-                DriverManager.setWebDriver( new RemoteWebDriver(new URL(remoteDriverHub), capabilities));
-                logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
-                DriverManager.getWebDriver().navigate().to(getUrl());
-            }
+                    DriverManager.setWebDriver(new RemoteWebDriver(new URL(remoteDriverHub), capabilities));
+                    logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
+                    DriverManager.getWebDriver().navigate().to(getUrl());
+                }
 //            setMaximizeBrowser();
+            } else {
+                if (isNull(DriverManager.getWebDriver())) {
+                    if (browserName.equalsIgnoreCase("chrome")) {
+                        DriverManager.setWebDriver(new ChromeDriver());
+                    } else if (browserName.equalsIgnoreCase("edge")) {
+                        DriverManager.setWebDriver(new EdgeDriver());
+                    } else if (browserName.equalsIgnoreCase("firefox")) {
+                        DriverManager.setWebDriver(new FirefoxDriver());
+                    }
+                }
+            }
+
         }
     }
     public static void closeDriver(){
